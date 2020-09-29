@@ -24,7 +24,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.users);
     return <div className="App"></div>;
   }
 }
