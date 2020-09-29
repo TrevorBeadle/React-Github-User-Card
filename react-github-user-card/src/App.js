@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import axios from "axios";
+import Card from "./components/Card";
 
 class App extends React.Component {
   state = {
@@ -24,7 +25,13 @@ class App extends React.Component {
   }
 
   render() {
-    return <div className="App"></div>;
+    return (
+      <div className="App">
+        {this.state.users.map(user => (
+          <Card user={user} />
+        ))}
+      </div>
+    );
   }
 }
 
