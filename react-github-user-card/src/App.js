@@ -3,36 +3,28 @@ import "./App.css";
 import axios from "axios";
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-    };
-  }
+  state = {
+    users: [],
+  };
+
+  buildArray = async () => {
+    const res = await axios.get(`https://api.github.com/users/TrevorBeadle`);
+    const response = await axios.get(res.data.followers_url);
+    const results = await Promise.all(
+      response.data.map(follower => {
+        return axios.get(follower.url);
+      })
+    );
+    const resultData = results.map(result => result.data);
+    this.setState({ users: [...this.state.users, res.data, ...resultData] });
+  };
 
   componentDidMount() {
-    axios
-      .get(`https://api.github.com/users/TrevorBeadle`)
-      .then((res) => {
-        this.setState({ ...this.state, users: res.data });
-        axios
-          .get(res.data.followers_url)
-          .then((res) => {
-            res.data.forEach((follower) => {
-              axios
-                .get(follower.url)
-                .then((res) => {
-                  this.setState({ ...this.state, users: res.data });
-                })
-                .catch((err) => console.log(err));
-            });
-          })
-          .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log(err));
+    this.buildArray();
   }
 
   render() {
+    console.log(this.state.users);
     return <div className="App"></div>;
   }
 }
