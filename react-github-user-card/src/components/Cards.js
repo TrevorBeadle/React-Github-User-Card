@@ -6,7 +6,7 @@ class Cards extends React.Component {
     return (
       <div className="cards">
         {this.props.users.map(user => (
-          <Card user={user} />
+          <Card key={user.id} user={user} />
         ))}
       </div>
     );
