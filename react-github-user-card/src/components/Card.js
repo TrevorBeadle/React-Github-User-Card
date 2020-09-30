@@ -18,7 +18,7 @@ class Card extends React.Component {
           </p>
           <p>Followers: {this.props.user.followers}</p>
           <p>Following: {this.props.user.following}</p>
-          <p>Bio: {this.props.user.bio}</p>
+          <p>Bio: {this.props.user.bio ? this.props.user.bio : "N/A"}</p>
         </div>
       </div>
     );
